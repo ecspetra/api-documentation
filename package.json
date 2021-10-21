@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass scss/:css/ --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery-simple-menu": "^0.6.3",
+    "sass": "^1.43.2"
+  }
+}

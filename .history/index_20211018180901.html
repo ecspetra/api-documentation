@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>LiveLib Api</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header class="header header_mobile">
+      <button class="header__button" id="header-button">Содержание</button>
+      <div class="header__logo">
+        <img src="img/api-logo.svg" alt="Логотип проекта">
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar">
+      <ul class="sidebar__list">
+        <li class="sidebar__item" id="main-info">
+          <a href="#">Основная информация</a>
+        </li>
+        <li class="sidebar__item" id="request-structure">
+          <a href="#">Структура запроса</a>
+        </li>
+        <li class="sidebar__item" id="answer-structure">
+          <a href="#">Структура ответа</a>
+        </li>
+        <li class="sidebar__item" id="books-info">
+          <a href="#" class="drop">Информация о книгах</a>
+          <img src="img/more-arrow.svg" alt="more-arrow" class="sidebar__arrow">
+          <ul class="nested">
+            <li><a href="#">Параметры запроса</a></li>
+            <li><a href="#">Доступные поля в ответе</a></li>
+          </ul>
+        </li>
+        <li class="sidebar__item" id="reviews-info">
+          <a href="#" class="drop">Информация о рецензиях</a>
+          <img src="img/more-arrow.svg" alt="more-arrow" class="sidebar__arrow">
+          <ul class="nested">
+            <li><a href="#">Параметры запроса</a></li>
+            <li><a href="#">Доступные поля в ответе</a></li>
+            <li><a href="#">Доступные поля для сортировки</a></li>
+          </ul>
+        </li>
+        <li class="sidebar__item" id="authors-info">
+          <a href="#" class="drop">Информация об авторах</a>
+          <img src="img/more-arrow.svg" alt="more-arrow" class="sidebar__arrow">
+          <ul class="nested">
+            <li><a href="#">Параметры запроса</a></li>
+            <li><a href="#">Доступные поля в ответе</a></li>
+            <li>
+              <a href="#" class="drop">Информация об авторах</a>
+              <img src="img/more-arrow.svg" alt="more-arrow" class="sidebar__arrow">
+              <ul class="nested">
+                <li><a href="#">Информация о рецензиях</a></li>
+                <li><a href="#">Информация о рецензиях</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <div class="resize-handle--x" id="resize-handle" data-target="aside"></div>
+
+    <div class="main">
+
+      <main class="content">
+        <h1 class="visually-hidden">Документация API сервиса LiveLib</h1>
+        <section class="section">
+          <h2 class="visually-hidden">Основная информация</h2>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <tr>
+                  <td>Версия протокола</td>
+                  <td>v2</td>
+                </tr>
+                <tr>
+                  <td>Ключ партнера</td>
+                  <td>xxxxxxxxxxxxxxxxxxxxxxx</td>
+                </tr>
+                <tr>
+                  <td>Формат обмена</td>
+                  <td>JSON</td>
+                </tr>
+                <tr>
+                  <td>Кодировка ответа</td>
+                  <td>UTF-8</td>
+                </tr>
+                <tr>
+                  <td>Версия документа</td>
+                  <td>15 февраля 2021</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <h2 class="title">Структура запроса</h2>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <tr>
+                  <td>api_key</td>
+                  <td>ключ партнера, можно указывать здесь или передавать GET параметром</td>
+                </tr>
+                <tr>
+                  <td>query</td>
+                  <td>тело запроса</td>
+                </tr>
+                <tr>
+                  <td>&ensp;filter</td>
+                  <td>фильтр запроса</td>
+                </tr>
+                <tr>
+                  <td>&emsp;term</td>
+                  <td>параметр фильтра запроса — строка, число или массив</td>
+                </tr>
+                <tr>
+                  <td>fields</td>
+                  <td>поля в ответе — массив, по умолчанию все</td>
+                </tr>
+                <tr>
+                  <td>sort</td>
+                  <td>поле из ответа, по которому сортируются результаты</td>
+                </tr>
+                <tr>
+                  <td>from</td>
+                  <td>первая позиция слайса результатов, по умолчанию 0</td>
+                </tr>
+                <tr>
+                  <td>size</td>
+                  <td>количество результатов в слайсе, по умолчанию 100</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <h2 class="title">Структура ответа</h2>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <tr>
+                  <td>status</td>
+                  <td>okay при успешном выполнении</td>
+                </tr>
+                <tr>
+                  <td>took</td>
+                  <td>время выполнения запроса в мс</td>
+                </tr>
+                <tr>
+                  <td>hits</td>
+                  <td>результаты запроса</td>
+                </tr>
+                <tr>
+                  <td>&ensp;total</td>
+                  <td>количество всех результатов запроса</td>
+                </tr>
+                <tr>
+                  <td>&ensp;hits</td>
+                  <td>результаты — массив</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <h2 class="title">Информация о книгах</h2>
+          <a class="link" href="https://api.livelib.ru/v2/bookinfo">https://api.livelib.ru/v2/bookinfo</a>
+          <h3 class="subtitle">Параметры запроса</h3>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Параметр</th>
+                    <th>Тип</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>id</td>
+                    <td>int array</td>
+                    <td>Идентификаторы книг из источника</td>
+                  </tr>
+                  <tr>
+                    <td>isbn</td>
+                    <td>string array</td>
+                    <td>ISBN изданий, может использоваться дополнительно к id или вместо</td>
+                  </tr>
+                  <tr>
+                    <td>source</td>
+                    <td>string</td>
+                    <td>Алиас источника (mybook)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h3 class="subtitle">Доступные поля в ответе</h3>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Поле</th>
+                    <th>Тип</th>
+                    <th>Размер</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Внутренний идентификатор издания на Лайвлибе</td>
+                  </tr>
+                  <tr>
+                    <td>source_id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Идентификатор книги в источнике</td>
+                  </tr>
+                  <tr>
+                    <td>book_id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Внутренний идентификатор книги на Лайвлибе</td>
+                  </tr>
+                  <tr>
+                    <td>name</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Название издания</td>
+                  </tr>
+                  <tr>
+                    <td>rating</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Рейтинг книги в списке Топ-100</td>
+                  </tr>
+                  <tr>
+                    <td>author_id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Внутренний идентификатор автора</td>
+                  </tr>
+                  <tr>
+                    <td>author</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Имя и фамилия автора</td>
+                  </tr>
+                  <tr>
+                    <td>isbn</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Все isbn издания, перечислены через запятую</td>
+                  </tr>
+                  <tr>
+                    <td>year</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Год выпуска издания</td>
+                  </tr>
+                  <tr>
+                    <td>publishing</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Названия всех издательств, выпускавших издание, перечислены через запятую</td>
+                  </tr>
+                  <tr>
+                    <td>series</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Название издательской серии</td>
+                  </tr>
+                  <tr>
+                    <td>description</td>
+                    <td>string</td>
+                    <td>64K</td>
+                    <td>Аннотация к изданию</td>
+                  </tr>
+                  <tr>
+                    <td>count_plus</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших положительную оценку книге</td>
+                  </tr>
+                  <tr>
+                    <td>count_zero</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших нейтральную оценку книге</td>
+                  </tr>
+                  <tr>
+                    <td>count_minus</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших отрицательную оценку книге</td>
+                  </tr>
+                  <tr>
+                    <td>count_readers</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, прочитавших книгу</td>
+                  </tr>
+                  <tr>
+                    <td>count_readers_all</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество прочитавших и недочитавших книгу</td>
+                  </tr>
+                  <tr>
+                    <td>tags</td>
+                    <td>string</td>
+                    <td>127</td>
+                    <td>Теги к книге, перечислены через запятую</td>
+                  </tr>
+                  <tr>
+                    <td>pic_url</td>
+                    <td>string</td>
+                    <td>127</td>
+                    <td>Ссылка на обложку издания, png-изображение с шириной 100px</td>
+                  </tr>
+                  <tr>
+                    <td>avg_mark</td>
+                    <td>float</td>
+                    <td>4</td>
+                    <td>Средняя оценка книги по 5-балльной шкале, формат 4.123</td>
+                  </tr>
+                  <tr>
+                    <td>count_reviews</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество рецензий на книгу</td>
+                  </tr>
+                  <tr>
+                    <td>count_quotes</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество цитат из книги</td>
+                  </tr>
+                  <tr>
+                    <td>count_stories</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество историй о книге</td>
+                  </tr>
+                  <tr>
+                    <td>count_selections</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество подборок, в которые добавлена книга</td>
+                  </tr>
+                  <tr>
+                    <td>facts</td>
+                    <td>string</td>
+                    <td>16M</td>
+                    <td>Текст раздела «Интересные факты» информации о книге</td>
+                  </tr>
+                  <tr>
+                    <td>facts_marked</td>
+                    <td>string</td>
+                    <td>16M</td>
+                    <td>Текст раздела «Интересные факты» информации о книге c html тегами</td>
+                  </tr>
+                  <tr>
+                    <td>facts_date</td>
+                    <td>string</td>
+                    <td>50</td>
+                    <td>Дата изменения раздела, формат "2021-05-10T11:25"</td>
+                  </tr>
+                  <tr>
+                    <td>movies</td>
+                    <td>string</td>
+                    <td>16M</td>
+                    <td>Текст раздела «Экранизации» информации о книге</td>
+                  </tr>
+                  <tr>
+                    <td>widget_url</td>
+                    <td>string</td>
+                    <td>127</td>
+                    <td>Ссылка на виджет рейтинга книги</td>
+                  </tr>
+                  <tr>
+                    <td>widget_url2</td>
+                    <td>string</td>
+                    <td>127</td>
+                    <td>Ссылка на виджет рейтинга книги в две строки</td>
+                  </tr>
+                  <tr>
+                    <td>0_mark</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших оценку 0 книге</td>
+                  </tr>
+                  <tr>
+                    <td>1_mark</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших оценку 1 книге (по 5-балльной шкале)</td>
+                  </tr>
+                  <tr>
+                    <td>2_mark</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших оценку 2 книге (по 5-балльной шкале)</td>
+                  </tr>
+                  <tr>
+                    <td>3_mark</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших оценку 3 книге (по 5-балльной шкале)</td>
+                  </tr>
+                  <tr>
+                    <td>4_mark</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших оценку 4 книге (по 5-балльной шкале)</td>
+                  </tr>
+                  <tr>
+                    <td>5_mark</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество пользователей, поставивших оценку 5 книге (по 5-балльной шкале)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="description">Пример запроса для получения полной информации по нескольким ID книг</p>
+          <div class="code-listing">
+            <pre>
+  <code>
+  POST https://api.livelib.ru/v2/bookinfo?api_key=2090a7e895d9576ce5715c0b87328d4f
+  {
+    "query" : {
+      "filter": [
+        {"term": {"source": "mybook"}},
+        {"term": {"id": [280170,22725,60539,299238,292254,206784,295790]}}
+      ]
+    }
+  }
+  </code>
+          </pre>
+          </div>
+          <p class="description">Пример запроса для получения полной информации по нескольким ID и ISBN</p>
+          <div class="code-listing">
+            <pre>
+  <code>
+  POST https://api.livelib.ru/v2/bookinfo?api_key=2090a7e895d9576ce5715c0b87328d4f
+  {
+    "query" : {
+      "filter": [
+        {"term": {"source": "mybook"}},
+        {"term": {"id": [280170,22725,60539,299238,292254,206784,295790]}},
+        {"term": {"isbn": ["5-17-021722-6", "9788280870285"]}}
+      ]
+    }
+  }
+  </code>
+          </pre>
+          </div>
+          <p class="description">Пример запроса для получения источника, названия и ссылки на виджет для первых 3 книг
+            результа при запросе по нескольким ID книг</p>
+          <div class="code-listing">
+            <pre>
+  <code>
+  POST https://api.livelib.ru/v2/bookinfo?api_key=2090a7e895d9576ce5715c0b87328d4f
+  {
+    "query" : {
+      "filter": [
+        {"term": {"source": "mybook"}},
+        {"term": {"id": [280170,22725,60539,299238,292254,206784,295790]}}
+      ]
+    },
+    "fields": ["id", "source_id", "name", "widget_url"],
+    "from": 0,
+    "size": 3
+  }
+  </code>
+          </pre>
+          </div>
+          <p class="description">Пример запроса для получения “Интересные факты” только для книг, у которых факты
+            обновились после 1 января 2021</p>
+          <div class="code-listing">
+            <pre>
+  <code>
+  POST https://api.livelib.ru/v2/bookinfo?api_key=2090a7e895d9576ce5715c0b87328d4f
+  {
+    "query" : {
+      "filter": [
+        {"term": {"source": "mybook"}},
+        {"term": {"id": [148706,458089,314194,293066,184358,621234]}},
+        {"range": {"facts_date": {"gte": "2021-01-01T00:00"}}}
+      ]
+    },
+    "fields": ["id","source_id","facts","facts_marked","facts_date"]
+  }
+  </code>
+          </pre>
+          </div>
+        </section>
+        <section class="section">
+          <h2 class="title">Информация о рецензиях</h2>
+          <a class="link" href="https://api.livelib.ru/v2/reviews">https://api.livelib.ru/v2/reviews</a>
+          <h3 class="subtitle">Параметры запроса</h3>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Параметр</th>
+                    <th>Тип</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>id</td>
+                    <td>int array</td>
+                    <td>Идентификаторы книг из источника</td>
+                  </tr>
+                  <tr>
+                    <td>source</td>
+                    <td>string</td>
+                    <td>Алиас источника (mybook)</td>
+                  </tr>
+                  <tr>
+                    <td>strict</td>
+                    <td>bool</td>
+                    <td>true - выбрать только рецензии на издания, связанные с источником. По умолчанию false - выбрать
+                      рецензии на любые издания книг, связанных с источником</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h3 class="subtitle">Доступные поля в ответе</h3>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Поле</th>
+                    <th>Тип</th>
+                    <th>Размер</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Идентификатор рецензии</td>
+                  </tr>
+                  <tr>
+                    <td>source_id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Идентификатор книги в источнике</td>
+                  </tr>
+                  <tr>
+                    <td>title</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Заголовок рецензии</td>
+                  </tr>
+                  <tr>
+                    <td>text</td>
+                    <td>string</td>
+                    <td>64K</td>
+                    <td>Полный текст рецензии</td>
+                  </tr>
+                  <tr>
+                    <td>marked_text</td>
+                    <td>string</td>
+                    <td>64K</td>
+                    <td>Полный текст рецензии с html тегами</td>
+                  </tr>
+                  <tr>
+                    <td>reader</td>
+                    <td>string</td>
+                    <td>50</td>
+                    <td>Логин автора рецензии</td>
+                  </tr>
+                  <tr>
+                    <td>book_id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Идентификатор издания, на которое написана рецензия</td>
+                  </tr>
+                  <tr>
+                    <td>review_rating</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Рейтинг рецензии</td>
+                  </tr>
+                  <tr>
+                    <td>count_comments</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Количество комментариев к рецензии</td>
+                  </tr>
+                  <tr>
+                    <td>pic_url</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Ссылка на изображение профиля автора рецензии, jpg с шириной 100px</td>
+                  </tr>
+                  <tr>
+                    <td>date</td>
+                    <td>string</td>
+                    <td>50</td>
+                    <td>Дата написания рецензии, формат "2021-05-10T11:25"</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h3 class="subtitle">Доступные поля для сортировки</h3>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>review_rating</td>
+                    <td>Рейтинг рецензии</td>
+                  </tr>
+                  <tr>
+                    <td>date</td>
+                    <td>Дата написания рецензии</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="description">Пример запроса для получения лучших рецензий на указанные книги с 1 января 2021</p>
+          <div class="code-listing">
+            <pre>
+  <code>
+  POST https://api.livelib.ru/v2/reviews?api_key=2090a7e895d9576ce5715c0b87328d4f
+  {
+    "query" : {
+      "filter": [
+        {"term": {"source": "mybook"}},
+        {"term": {"id": [148706,458089,314194,293066,184358,621234]}},
+        {"range": {"date": {"gte": "2021-01-01T00:00"}}}
+      ]
+    },
+    "fields": ["id","source_id","review_rating","reader","date","marked_text"],
+    "sort": {"review_rating":"desc"}
+  }
+  </code>
+          </pre>
+          </div>
+        </section>
+        <section class="section">
+          <h2 class="title">Информация об авторах</h2>
+          <a class="link" href="https://api.livelib.ru/v2/authors">https://api.livelib.ru/v2/authors</a>
+          <h3 class="subtitle">Параметры запроса</h3>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Параметр</th>
+                    <th>Тип</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>id</td>
+                    <td>int array</td>
+                    <td>Внутренний идентификатор автора на Лайвлибе</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h3 class="subtitle">Доступные поля в ответе</h3>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Параметр</th>
+                    <th>Тип</th>
+                    <th>Размер</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>id</td>
+                    <td>int</td>
+                    <td>4</td>
+                    <td>Внутренний идентификатор автора</td>
+                  </tr>
+                  <tr>
+                    <td>name</td>
+                    <td>string</td>
+                    <td>255</td>
+                    <td>Имя и фамилия автора</td>
+                  </tr>
+                  <tr>
+                    <td>born_date</td>
+                    <td>string</td>
+                    <td>50</td>
+                    <td>Дата рождения, формат "2014-10-03"</td>
+                  </tr>
+                  <tr>
+                    <td>died_date</td>
+                    <td>string</td>
+                    <td>50</td>
+                    <td>Дата смерти, формат "2014-10-03"</td>
+                  </tr>
+                  <tr>
+                    <td>pic_url</td>
+                    <td>string</td>
+                    <td>127</td>
+                    <td>Ссылка на фотографию автора, jpeg-изображение максимального доступного размера</td>
+                  </tr>
+                  <tr>
+                    <td>has_picture</td>
+                    <td>int</td>
+                    <td>1</td>
+                    <td>Есть ли фотография у автора</td>
+                  </tr>
+                  <tr>
+                    <td>biography</td>
+                    <td>string</td>
+                    <td>16M</td>
+                    <td>Текст раздела «Биография» информации об авторе</td>
+                  </tr>
+                  <tr>
+                    <td>facts</td>
+                    <td>string</td>
+                    <td>16M</td>
+                    <td>Текст раздела «Интересные факты» информации об авторе</td>
+                  </tr>
+                  <tr>
+                    <td>links</td>
+                    <td>string</td>
+                    <td>16M</td>
+                    <td>Текст раздела «Ссылки» информации об авторе</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="description">Пример запроса для получения ссылок на фото авторов</p>
+          <div class="code-listing">
+            <pre>
+  <code>
+  POST https://api.livelib.ru/v2/authors?api_key=2090a7e895d9576ce5715c0b87328d4f
+  {
+    "query" : {
+      "filter": [
+        {"term": {"id": [1,31,48,75]}},
+        {"term": {"has_picture": [1]}}
+      ]
+    },
+    "fields":["id","pic_url"]
+  }
+  </code>
+          </pre>
+          </div>
+        </section>
+        <section class="section">
+          <h2 class="title">Пример кода PHP для запроса к API</h2>
+          <div class="code-listing">
+            <pre>
+            <!-- С помощью $lt; экранируем код PHP -->
+  <code>
+  &lt;?php
+  
+  $source = 'mybook';
+  $ids = [280170,22725,60539,299238,292254,206784,295790];
+  
+  $json_data = '
+    {
+      "query" : {
+        "filter": [
+          {"term": {"source": "mybook"}},
+          {"term": {"id": [' . implode(',', $ids) . ']}}
+        ]
+      },
+      "fields": ["id", "source_id", "name", "widget_url"],
+      "from": 0,
+      "size": 3
+    }
+  ';
+  
+  $api_key = '2090a7e895d9576ce5715c0b87328d4f';
+  $url = 'https://api.livelib.ru/v2/bookinfo?api_key=' . $api_key;
+  
+  
+  $ch = curl_init();
+  
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  
+  $server_output = curl_exec ($ch);
+  print_r(curl_error($ch));
+  curl_close ($ch);
+  
+  print_r($server_output);
+  </code>
+          </pre>
+          </div>
+        </section>
+        <section class="section__content">
+          <h2 class="title">Ошибки</h2>
+          <p class="description">Если при выполнении запроса произошла ошибка, то придет ответ в формате</p>
+          <div class="code-listing">
+            <pre>
+  <code>
+  {
+    "status": "error",
+    "error_code": "11xx",
+    "message": "error description"
+  }
+  </code>
+          </pre>
+          </div>
+          <div class="table">
+            <div class="table__wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Код ошибки</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1101</td>
+                    <td>Не указан api_key</td>
+                  </tr>
+                  <tr>
+                    <td>1102</td>
+                    <td>api_key недействителен</td>
+                  </tr>
+                  <tr>
+                    <td>1103</td>
+                    <td>Пустой POST-запрос</td>
+                  </tr>
+                  <tr>
+                    <td>1107</td>
+                    <td>В запросе не указаны id книг / объектов</td>
+                  </tr>
+                  <tr>
+                    <td>1108</td>
+                    <td>Не указан параметр source</td>
+                  </tr>
+                  <tr>
+                    <td>1109</td>
+                    <td>Источник не найден или недоступен для переданного api_key</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/resize.js"></script>
+  <script src="js/lists.js"></script>
+</body>
+
+</html>
